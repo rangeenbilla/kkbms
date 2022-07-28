@@ -247,90 +247,159 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
               ).animated([animationsMap['textOnPageLoadAnimation']]),
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
-                child: TextFormField(
-                  controller: yourNameController,
-                  obscureText: false,
-                  decoration: InputDecoration(
-                    labelText: 'Your Name',
-                    labelStyle: FlutterFlowTheme.of(context).bodyText1.override(
-                          fontFamily: 'Open Sans',
-                          color: FlutterFlowTheme.of(context).grayLight,
-                        ),
-                    hintStyle: FlutterFlowTheme.of(context).bodyText1.override(
-                          fontFamily: 'Open Sans',
-                          color: Color(0x98FFFFFF),
-                        ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Color(0x00000000),
-                        width: 1,
-                      ),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Color(0x00000000),
-                        width: 1,
-                      ),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    filled: true,
-                    fillColor: FlutterFlowTheme.of(context).darkBackground,
-                    contentPadding:
-                        EdgeInsetsDirectional.fromSTEB(20, 24, 20, 24),
+                child: StreamBuilder<List<UsersRecord>>(
+                  stream: queryUsersRecord(
+                    singleRecord: true,
                   ),
-                  style: FlutterFlowTheme.of(context).bodyText1.override(
-                        fontFamily: 'Open Sans',
-                        color: FlutterFlowTheme.of(context).textColor,
+                  builder: (context, snapshot) {
+                    // Customize what your widget looks like when it's loading.
+                    if (!snapshot.hasData) {
+                      return Center(
+                        child: SizedBox(
+                          width: 40,
+                          height: 40,
+                          child: SpinKitPumpingHeart(
+                            color: FlutterFlowTheme.of(context).primaryColor,
+                            size: 40,
+                          ),
+                        ),
+                      );
+                    }
+                    List<UsersRecord> yourNameUsersRecordList = snapshot.data;
+                    // Return an empty Container when the document does not exist.
+                    if (snapshot.data.isEmpty) {
+                      return Container();
+                    }
+                    final yourNameUsersRecord =
+                        yourNameUsersRecordList.isNotEmpty
+                            ? yourNameUsersRecordList.first
+                            : null;
+                    return TextFormField(
+                      controller: yourNameController,
+                      onFieldSubmitted: (_) async {
+                        final usersUpdateData = createUsersRecordData();
+                        await yourNameUsersRecord.reference
+                            .update(usersUpdateData);
+                      },
+                      obscureText: false,
+                      decoration: InputDecoration(
+                        labelText: 'Your Name',
+                        labelStyle:
+                            FlutterFlowTheme.of(context).bodyText1.override(
+                                  fontFamily: 'Open Sans',
+                                  color: FlutterFlowTheme.of(context).grayLight,
+                                ),
+                        hintStyle:
+                            FlutterFlowTheme.of(context).bodyText1.override(
+                                  fontFamily: 'Open Sans',
+                                  color: Color(0x98FFFFFF),
+                                ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0x00000000),
+                            width: 1,
+                          ),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0x00000000),
+                            width: 1,
+                          ),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        filled: true,
+                        fillColor: FlutterFlowTheme.of(context).darkBackground,
+                        contentPadding:
+                            EdgeInsetsDirectional.fromSTEB(20, 24, 20, 24),
                       ),
-                ).animated([animationsMap['textFieldOnPageLoadAnimation1']]),
+                      style: FlutterFlowTheme.of(context).bodyText1.override(
+                            fontFamily: 'Open Sans',
+                            color: FlutterFlowTheme.of(context).textColor,
+                          ),
+                    ).animated(
+                        [animationsMap['textFieldOnPageLoadAnimation1']]);
+                  },
+                ),
               ),
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
-                child: TextFormField(
-                  controller: yourAgeController,
-                  onFieldSubmitted: (_) async {
-                    final usersUpdateData = createUsersRecordData(
-                      companyName: '',
-                    );
-                    await currentUserReference.update(usersUpdateData);
-                  },
-                  obscureText: false,
-                  decoration: InputDecoration(
-                    labelText: 'Comapny name',
-                    labelStyle: FlutterFlowTheme.of(context).bodyText1.override(
-                          fontFamily: 'Open Sans',
-                          color: FlutterFlowTheme.of(context).grayLight,
-                        ),
-                    hintStyle: FlutterFlowTheme.of(context).bodyText1.override(
-                          fontFamily: 'Open Sans',
-                          color: Color(0x98FFFFFF),
-                        ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Color(0x00000000),
-                        width: 1,
-                      ),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Color(0x00000000),
-                        width: 1,
-                      ),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    filled: true,
-                    fillColor: FlutterFlowTheme.of(context).darkBackground,
-                    contentPadding:
-                        EdgeInsetsDirectional.fromSTEB(20, 24, 20, 24),
+                child: StreamBuilder<List<UsersRecord>>(
+                  stream: queryUsersRecord(
+                    singleRecord: true,
                   ),
-                  style: FlutterFlowTheme.of(context).bodyText1.override(
-                        fontFamily: 'Open Sans',
-                        color: FlutterFlowTheme.of(context).textColor,
+                  builder: (context, snapshot) {
+                    // Customize what your widget looks like when it's loading.
+                    if (!snapshot.hasData) {
+                      return Center(
+                        child: SizedBox(
+                          width: 40,
+                          height: 40,
+                          child: SpinKitPumpingHeart(
+                            color: FlutterFlowTheme.of(context).primaryColor,
+                            size: 40,
+                          ),
+                        ),
+                      );
+                    }
+                    List<UsersRecord> yourAgeUsersRecordList = snapshot.data;
+                    // Return an empty Container when the document does not exist.
+                    if (snapshot.data.isEmpty) {
+                      return Container();
+                    }
+                    final yourAgeUsersRecord = yourAgeUsersRecordList.isNotEmpty
+                        ? yourAgeUsersRecordList.first
+                        : null;
+                    return TextFormField(
+                      controller: yourAgeController,
+                      onFieldSubmitted: (_) async {
+                        final usersUpdateData = createUsersRecordData(
+                          companyName: '',
+                        );
+                        await yourAgeUsersRecord.reference
+                            .update(usersUpdateData);
+                      },
+                      obscureText: false,
+                      decoration: InputDecoration(
+                        labelText: 'Comapny name',
+                        labelStyle:
+                            FlutterFlowTheme.of(context).bodyText1.override(
+                                  fontFamily: 'Open Sans',
+                                  color: FlutterFlowTheme.of(context).grayLight,
+                                ),
+                        hintStyle:
+                            FlutterFlowTheme.of(context).bodyText1.override(
+                                  fontFamily: 'Open Sans',
+                                  color: Color(0x98FFFFFF),
+                                ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0x00000000),
+                            width: 1,
+                          ),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0x00000000),
+                            width: 1,
+                          ),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        filled: true,
+                        fillColor: FlutterFlowTheme.of(context).darkBackground,
+                        contentPadding:
+                            EdgeInsetsDirectional.fromSTEB(20, 24, 20, 24),
                       ),
-                  keyboardType: TextInputType.number,
-                ).animated([animationsMap['textFieldOnPageLoadAnimation2']]),
+                      style: FlutterFlowTheme.of(context).bodyText1.override(
+                            fontFamily: 'Open Sans',
+                            color: FlutterFlowTheme.of(context).textColor,
+                          ),
+                      keyboardType: TextInputType.number,
+                    ).animated(
+                        [animationsMap['textFieldOnPageLoadAnimation2']]);
+                  },
+                ),
               ),
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
@@ -375,109 +444,61 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
               ),
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
-                child: StreamBuilder<UsersRecord>(
-                  stream: UsersRecord.getDocument(currentUserReference),
-                  builder: (context, snapshot) {
-                    // Customize what your widget looks like when it's loading.
-                    if (!snapshot.hasData) {
-                      return Center(
-                        child: SizedBox(
-                          width: 40,
-                          height: 40,
-                          child: SpinKitPumpingHeart(
-                            color: FlutterFlowTheme.of(context).primaryColor,
-                            size: 40,
-                          ),
-                        ),
-                      );
-                    }
-                    final buttonLoginUsersRecord = snapshot.data;
-                    return FFButtonWidget(
-                      onPressed: () async {
-                        final usersUpdateData = createUsersRecordData(
-                          displayName: yourNameController.text,
-                          age: int.parse(yourAgeController.text),
-                          userTitle: yourTitleController.text,
-                          photoUrl: '',
-                        );
-                        await buttonLoginUsersRecord.reference
-                            .update(usersUpdateData);
-                        await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => OnboardingWidget(),
-                          ),
-                        );
-                      },
-                      text: 'Complete Profile',
-                      options: FFButtonOptions(
-                        width: 230,
-                        height: 50,
-                        color: FlutterFlowTheme.of(context).primaryColor,
-                        textStyle:
-                            FlutterFlowTheme.of(context).subtitle2.override(
-                                  fontFamily: 'Open Sans',
-                                  color: FlutterFlowTheme.of(context).textColor,
-                                ),
-                        elevation: 3,
-                        borderSide: BorderSide(
-                          color: Colors.transparent,
-                          width: 1,
-                        ),
-                        borderRadius: BorderRadius.circular(30),
+                child: FFButtonWidget(
+                  onPressed: () async {
+                    await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => OnboardingWidget(),
                       ),
-                    ).animated([animationsMap['buttonOnPageLoadAnimation1']]);
+                    );
                   },
-                ),
+                  text: 'Complete Profile',
+                  options: FFButtonOptions(
+                    width: 230,
+                    height: 50,
+                    color: FlutterFlowTheme.of(context).primaryColor,
+                    textStyle: FlutterFlowTheme.of(context).subtitle2.override(
+                          fontFamily: 'Open Sans',
+                          color: FlutterFlowTheme.of(context).textColor,
+                        ),
+                    elevation: 3,
+                    borderSide: BorderSide(
+                      color: Colors.transparent,
+                      width: 1,
+                    ),
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                ).animated([animationsMap['buttonOnPageLoadAnimation1']]),
               ),
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
-                child: StreamBuilder<UsersRecord>(
-                  stream: UsersRecord.getDocument(currentUserReference),
-                  builder: (context, snapshot) {
-                    // Customize what your widget looks like when it's loading.
-                    if (!snapshot.hasData) {
-                      return Center(
-                        child: SizedBox(
-                          width: 40,
-                          height: 40,
-                          child: SpinKitPumpingHeart(
-                            color: FlutterFlowTheme.of(context).primaryColor,
-                            size: 40,
-                          ),
-                        ),
-                      );
-                    }
-                    final buttonLoginUsersRecord = snapshot.data;
-                    return FFButtonWidget(
-                      onPressed: () async {
-                        await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => OnboardingWidget(),
-                          ),
-                        );
-                      },
-                      text: 'Skip for Now',
-                      options: FFButtonOptions(
-                        width: 140,
-                        height: 50,
-                        color: FlutterFlowTheme.of(context).background,
-                        textStyle:
-                            FlutterFlowTheme.of(context).subtitle2.override(
-                                  fontFamily: 'Open Sans',
-                                  color: FlutterFlowTheme.of(context).textColor,
-                                ),
-                        elevation: 0,
-                        borderSide: BorderSide(
-                          color: Colors.transparent,
-                          width: 1,
-                        ),
-                        borderRadius: BorderRadius.circular(30),
+                child: FFButtonWidget(
+                  onPressed: () async {
+                    await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => OnboardingWidget(),
                       ),
-                    ).animated([animationsMap['buttonOnPageLoadAnimation2']]);
+                    );
                   },
-                ),
+                  text: 'Skip for Now',
+                  options: FFButtonOptions(
+                    width: 140,
+                    height: 50,
+                    color: FlutterFlowTheme.of(context).background,
+                    textStyle: FlutterFlowTheme.of(context).subtitle2.override(
+                          fontFamily: 'Open Sans',
+                          color: FlutterFlowTheme.of(context).textColor,
+                        ),
+                    elevation: 0,
+                    borderSide: BorderSide(
+                      color: Colors.transparent,
+                      width: 1,
+                    ),
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                ).animated([animationsMap['buttonOnPageLoadAnimation2']]),
               ),
             ],
           ),

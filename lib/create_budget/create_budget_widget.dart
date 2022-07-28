@@ -102,79 +102,151 @@ class _CreateBudgetWidgetState extends State<CreateBudgetWidget> {
                       ),
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
-                        child: TextFormField(
-                          controller: budgetNameController1,
-                          onFieldSubmitted: (_) async {
-                            final budgetsCreateData = createBudgetsRecordData(
-                              budgetAmount: '',
-                            );
-                            await BudgetsRecord.collection
-                                .doc()
-                                .set(budgetsCreateData);
-                          },
-                          obscureText: false,
-                          decoration: InputDecoration(
-                            labelText: 'Enter Amount',
-                            labelStyle: FlutterFlowTheme.of(context).subtitle1,
-                            hintStyle: FlutterFlowTheme.of(context).bodyText1,
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: FlutterFlowTheme.of(context).background,
-                                width: 2,
-                              ),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: FlutterFlowTheme.of(context).background,
-                                width: 2,
-                              ),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            contentPadding:
-                                EdgeInsetsDirectional.fromSTEB(20, 32, 24, 32),
+                        child: StreamBuilder<List<BudgetsRecord>>(
+                          stream: queryBudgetsRecord(
+                            singleRecord: true,
                           ),
-                          style: FlutterFlowTheme.of(context).title3,
-                          textAlign: TextAlign.start,
-                          keyboardType: TextInputType.number,
+                          builder: (context, snapshot) {
+                            // Customize what your widget looks like when it's loading.
+                            if (!snapshot.hasData) {
+                              return Center(
+                                child: SizedBox(
+                                  width: 40,
+                                  height: 40,
+                                  child: SpinKitPumpingHeart(
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryColor,
+                                    size: 40,
+                                  ),
+                                ),
+                              );
+                            }
+                            List<BudgetsRecord> budgetNameBudgetsRecordList =
+                                snapshot.data;
+                            // Return an empty Container when the document does not exist.
+                            if (snapshot.data.isEmpty) {
+                              return Container();
+                            }
+                            final budgetNameBudgetsRecord =
+                                budgetNameBudgetsRecordList.isNotEmpty
+                                    ? budgetNameBudgetsRecordList.first
+                                    : null;
+                            return TextFormField(
+                              controller: budgetNameController1,
+                              onFieldSubmitted: (_) async {
+                                final budgetsCreateData =
+                                    createBudgetsRecordData(
+                                  budgetAmount: '',
+                                );
+                                await BudgetsRecord.collection
+                                    .doc()
+                                    .set(budgetsCreateData);
+
+                                final usersUpdateData = createUsersRecordData();
+                                await budgetNameBudgetsRecord.userBudgets
+                                    .update(usersUpdateData);
+                              },
+                              obscureText: false,
+                              decoration: InputDecoration(
+                                labelText: 'Enter Amount',
+                                labelStyle:
+                                    FlutterFlowTheme.of(context).subtitle1,
+                                hintStyle:
+                                    FlutterFlowTheme.of(context).bodyText1,
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color:
+                                        FlutterFlowTheme.of(context).background,
+                                    width: 2,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color:
+                                        FlutterFlowTheme.of(context).background,
+                                    width: 2,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                contentPadding: EdgeInsetsDirectional.fromSTEB(
+                                    20, 32, 24, 32),
+                              ),
+                              style: FlutterFlowTheme.of(context).title3,
+                              textAlign: TextAlign.start,
+                              keyboardType: TextInputType.number,
+                            );
+                          },
                         ),
                       ),
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
-                        child: TextFormField(
-                          controller: budgetNameController2,
-                          onFieldSubmitted: (_) async {
-                            final budgetsCreateData = createBudgetsRecordData(
-                              budetName: '',
-                            );
-                            await BudgetsRecord.collection
-                                .doc()
-                                .set(budgetsCreateData);
-                          },
-                          obscureText: false,
-                          decoration: InputDecoration(
-                            labelText: 'Budget Name',
-                            labelStyle: FlutterFlowTheme.of(context).subtitle1,
-                            hintStyle: FlutterFlowTheme.of(context).bodyText1,
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: FlutterFlowTheme.of(context).background,
-                                width: 2,
-                              ),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: FlutterFlowTheme.of(context).background,
-                                width: 2,
-                              ),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            contentPadding:
-                                EdgeInsetsDirectional.fromSTEB(20, 32, 24, 32),
+                        child: StreamBuilder<List<BudgetsRecord>>(
+                          stream: queryBudgetsRecord(
+                            singleRecord: true,
                           ),
-                          style: FlutterFlowTheme.of(context).title3,
-                          textAlign: TextAlign.start,
+                          builder: (context, snapshot) {
+                            // Customize what your widget looks like when it's loading.
+                            if (!snapshot.hasData) {
+                              return Center(
+                                child: SizedBox(
+                                  width: 40,
+                                  height: 40,
+                                  child: SpinKitPumpingHeart(
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryColor,
+                                    size: 40,
+                                  ),
+                                ),
+                              );
+                            }
+                            List<BudgetsRecord> budgetNameBudgetsRecordList =
+                                snapshot.data;
+                            // Return an empty Container when the document does not exist.
+                            if (snapshot.data.isEmpty) {
+                              return Container();
+                            }
+                            final budgetNameBudgetsRecord =
+                                budgetNameBudgetsRecordList.isNotEmpty
+                                    ? budgetNameBudgetsRecordList.first
+                                    : null;
+                            return TextFormField(
+                              controller: budgetNameController2,
+                              onFieldSubmitted: (_) async {
+                                final usersUpdateData = createUsersRecordData();
+                                await budgetNameBudgetsRecord.userBudgets
+                                    .update(usersUpdateData);
+                              },
+                              obscureText: false,
+                              decoration: InputDecoration(
+                                labelText: 'Budget Name',
+                                labelStyle:
+                                    FlutterFlowTheme.of(context).subtitle1,
+                                hintStyle:
+                                    FlutterFlowTheme.of(context).bodyText1,
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color:
+                                        FlutterFlowTheme.of(context).background,
+                                    width: 2,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color:
+                                        FlutterFlowTheme.of(context).background,
+                                    width: 2,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                contentPadding: EdgeInsetsDirectional.fromSTEB(
+                                    20, 32, 24, 32),
+                              ),
+                              style: FlutterFlowTheme.of(context).title3,
+                              textAlign: TextAlign.start,
+                            );
+                          },
                         ),
                       ),
                       Padding(
@@ -237,9 +309,6 @@ class _CreateBudgetWidgetState extends State<CreateBudgetWidget> {
                     children: [
                       StreamBuilder<List<BudgetListRecord>>(
                         stream: queryBudgetListRecord(
-                          queryBuilder: (budgetListRecord) =>
-                              budgetListRecord.where('budgetUser',
-                                  isEqualTo: currentUserReference),
                           singleRecord: true,
                         ),
                         builder: (context, snapshot) {

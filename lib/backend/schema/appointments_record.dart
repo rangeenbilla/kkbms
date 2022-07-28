@@ -27,11 +27,12 @@ abstract class AppointmentsRecord
   String get appointmentEmail;
 
   @nullable
-  double get appointmentContact;
-
-  @nullable
   @BuiltValueField(wireName: 'AppointmentTime')
   DateTime get appointmentTime;
+
+  @nullable
+  @BuiltValueField(wireName: 'AppointmentContact')
+  String get appointmentContact;
 
   @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
@@ -42,7 +43,7 @@ abstract class AppointmentsRecord
     ..appointmentDescription = ''
     ..appointmentType = ''
     ..appointmentEmail = ''
-    ..appointmentContact = 0.0;
+    ..appointmentContact = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('appointments');
@@ -72,8 +73,8 @@ Map<String, dynamic> createAppointmentsRecordData({
   DocumentReference appointmentPerson,
   String appointmentType,
   String appointmentEmail,
-  double appointmentContact,
   DateTime appointmentTime,
+  String appointmentContact,
 }) =>
     serializers.toFirestore(
         AppointmentsRecord.serializer,
@@ -83,5 +84,5 @@ Map<String, dynamic> createAppointmentsRecordData({
           ..appointmentPerson = appointmentPerson
           ..appointmentType = appointmentType
           ..appointmentEmail = appointmentEmail
-          ..appointmentContact = appointmentContact
-          ..appointmentTime = appointmentTime));
+          ..appointmentTime = appointmentTime
+          ..appointmentContact = appointmentContact));

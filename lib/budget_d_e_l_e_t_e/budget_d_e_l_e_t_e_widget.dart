@@ -1,4 +1,3 @@
-import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -151,75 +150,33 @@ class _BudgetDELETEWidgetState extends State<BudgetDELETEWidget> {
                     Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        StreamBuilder<List<BudgetListRecord>>(
-                          stream: queryBudgetListRecord(
-                            queryBuilder: (budgetListRecord) =>
-                                budgetListRecord.where('budgetUser',
-                                    isEqualTo: currentUserReference),
-                            singleRecord: true,
-                          ),
-                          builder: (context, snapshot) {
-                            // Customize what your widget looks like when it's loading.
-                            if (!snapshot.hasData) {
-                              return Center(
-                                child: SizedBox(
-                                  width: 40,
-                                  height: 40,
-                                  child: SpinKitPumpingHeart(
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryColor,
-                                    size: 40,
-                                  ),
-                                ),
-                              );
-                            }
-                            List<BudgetListRecord> buttonBudgetListRecordList =
-                                snapshot.data;
-                            // Return an empty Container when the document does not exist.
-                            if (snapshot.data.isEmpty) {
-                              return Container();
-                            }
-                            final buttonBudgetListRecord =
-                                buttonBudgetListRecordList.isNotEmpty
-                                    ? buttonBudgetListRecordList.first
-                                    : null;
-                            return FFButtonWidget(
-                              onPressed: () async {
-                                await budgetDELETEBudgetsRecord.reference
-                                    .delete();
-
-                                final budgetListUpdateData = {
-                                  'budget': FieldValue.arrayRemove(
-                                      [budgetDELETEBudgetsRecord.budetName]),
-                                };
-                                await buttonBudgetListRecord.reference
-                                    .update(budgetListUpdateData);
-                                await Navigator.push(
-                                  context,
-                                  PageTransition(
-                                    type: PageTransitionType.fade,
-                                    duration: Duration(milliseconds: 200),
-                                    reverseDuration:
-                                        Duration(milliseconds: 200),
-                                    child: MYBudgetsWidget(),
-                                  ),
-                                );
-                              },
-                              text: 'Delete Budget',
-                              options: FFButtonOptions(
-                                width: 300,
-                                height: 70,
-                                color: FlutterFlowTheme.of(context).errorRed,
-                                textStyle: FlutterFlowTheme.of(context).title1,
-                                elevation: 0,
-                                borderSide: BorderSide(
-                                  color: Colors.transparent,
-                                  width: 1,
-                                ),
-                                borderRadius: BorderRadius.circular(12),
+                        FFButtonWidget(
+                          onPressed: () async {
+                            await budgetDELETEBudgetsRecord.userBudgets
+                                .delete();
+                            await Navigator.push(
+                              context,
+                              PageTransition(
+                                type: PageTransitionType.fade,
+                                duration: Duration(milliseconds: 200),
+                                reverseDuration: Duration(milliseconds: 200),
+                                child: MYBudgetsWidget(),
                               ),
                             );
                           },
+                          text: 'Delete Budget',
+                          options: FFButtonOptions(
+                            width: 300,
+                            height: 70,
+                            color: FlutterFlowTheme.of(context).errorRed,
+                            textStyle: FlutterFlowTheme.of(context).title1,
+                            elevation: 0,
+                            borderSide: BorderSide(
+                              color: Colors.transparent,
+                              width: 1,
+                            ),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
                         ),
                       ],
                     ),

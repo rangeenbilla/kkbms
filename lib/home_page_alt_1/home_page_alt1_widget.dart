@@ -5,6 +5,8 @@ import '../create_budget/create_budget_widget.dart';
 import '../flutter_flow/flutter_flow_animations.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import '../flutter_flow/flutter_flow_widgets.dart';
+import '../m_y_profile_page/m_y_profile_page_widget.dart';
 import '../transfer_funds/transfer_funds_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -83,24 +85,46 @@ class _HomePageAlt1WidgetState extends State<HomePageAlt1Widget>
                     Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        Card(
-                          clipBehavior: Clip.antiAliasWithSaveLayer,
-                          color: FlutterFlowTheme.of(context).tertiaryColor,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(40),
-                          ),
-                          child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(2, 2, 2, 2),
-                            child: AuthUserStreamWidget(
-                              child: Container(
-                                width: 60,
-                                height: 60,
-                                clipBehavior: Clip.antiAlias,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                ),
-                                child: Image.network(
-                                  currentUserPhoto,
+                        InkWell(
+                          onTap: () async {
+                            await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => MYProfilePageWidget(),
+                              ),
+                            );
+                          },
+                          child: Card(
+                            clipBehavior: Clip.antiAliasWithSaveLayer,
+                            color: FlutterFlowTheme.of(context).tertiaryColor,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(40),
+                            ),
+                            child: Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(2, 2, 2, 2),
+                              child: AuthUserStreamWidget(
+                                child: InkWell(
+                                  onTap: () async {
+                                    await Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            MYProfilePageWidget(),
+                                      ),
+                                    );
+                                  },
+                                  child: Container(
+                                    width: 60,
+                                    height: 60,
+                                    clipBehavior: Clip.antiAlias,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: Image.network(
+                                      currentUserPhoto,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
@@ -236,36 +260,50 @@ class _HomePageAlt1WidgetState extends State<HomePageAlt1Widget>
                                         textBudgetsRecordList.isNotEmpty
                                             ? textBudgetsRecordList.first
                                             : null;
-                                    return InkWell(
-                                      onTap: () async {
-                                        if (textBudgetsRecord.budgetAmount ==
-                                                null ||
-                                            textBudgetsRecord.budgetAmount ==
-                                                '') {
-                                          await Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  CreateBudgetWidget(),
-                                            ),
-                                          );
-                                        } else {
-                                          return;
-                                        }
-                                      },
-                                      child: Text(
-                                        textBudgetsRecord.budgetAmount,
-                                        style: FlutterFlowTheme.of(context)
-                                            .title1
-                                            .override(
-                                              fontFamily: 'Open Sans',
-                                              fontSize: 32,
-                                            ),
-                                      ),
+                                    return Text(
+                                      textBudgetsRecord.budgetSpent,
+                                      style: FlutterFlowTheme.of(context)
+                                          .title1
+                                          .override(
+                                            fontFamily: 'Open Sans',
+                                            fontSize: 32,
+                                          ),
                                     );
                                   },
                                 ),
                               ],
+                            ),
+                          ),
+                          Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                            child: FFButtonWidget(
+                              onPressed: () async {
+                                await Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => CreateBudgetWidget(),
+                                  ),
+                                );
+                              },
+                              text: 'Add Budget',
+                              options: FFButtonOptions(
+                                width: 130,
+                                height: 40,
+                                color:
+                                    FlutterFlowTheme.of(context).primaryColor,
+                                textStyle: FlutterFlowTheme.of(context)
+                                    .subtitle2
+                                    .override(
+                                      fontFamily: 'Open Sans',
+                                      color: Colors.white,
+                                    ),
+                                borderSide: BorderSide(
+                                  color: Colors.transparent,
+                                  width: 1,
+                                ),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
                             ),
                           ),
                         ],
@@ -287,244 +325,284 @@ class _HomePageAlt1WidgetState extends State<HomePageAlt1Widget>
                       topRight: Radius.circular(16),
                     ),
                   ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(20, 16, 20, 0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Text(
-                              'Quick Service',
-                              style: FlutterFlowTheme.of(context).bodyText1,
-                            ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(16, 12, 16, 0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                              width: 110,
-                              height: 100,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context).background,
-                                borderRadius: BorderRadius.circular(8),
+                  child: Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 12),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Padding(
+                          padding:
+                              EdgeInsetsDirectional.fromSTEB(20, 16, 20, 0),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Text(
+                                'Quick Service',
+                                style: FlutterFlowTheme.of(context).bodyText1,
                               ),
-                              child: InkWell(
-                                onTap: () async {
-                                  await Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          TransferFundsWidget(),
-                                    ),
-                                  );
-                                },
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      Icons.swap_horiz_rounded,
-                                      color: FlutterFlowTheme.of(context)
-                                          .textColor,
-                                      size: 40,
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 8, 0, 0),
-                                      child: Text(
-                                        'Transfer',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyText1,
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding:
+                              EdgeInsetsDirectional.fromSTEB(16, 12, 16, 0),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                width: 110,
+                                height: 100,
+                                decoration: BoxDecoration(
+                                  color:
+                                      FlutterFlowTheme.of(context).background,
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: InkWell(
+                                  onTap: () async {
+                                    await Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            TransferFundsWidget(),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Container(
-                              width: 110,
-                              height: 100,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context).background,
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  FaIcon(
-                                    FontAwesomeIcons.fileInvoice,
-                                    color:
-                                        FlutterFlowTheme.of(context).textColor,
-                                    size: 40,
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 8, 0, 0),
-                                    child: Text(
-                                      'Invoice',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyText1,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              width: 110,
-                              height: 100,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context).background,
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: InkWell(
-                                onTap: () async {
-                                  await Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => AppointmentWidget(),
-                                    ),
-                                  );
-                                },
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      Icons.people_rounded,
-                                      color: FlutterFlowTheme.of(context)
-                                          .textColor,
-                                      size: 40,
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 8, 0, 0),
-                                      child: Text(
-                                        'Appointment',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyText1,
+                                    );
+                                  },
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.swap_horiz_rounded,
+                                        color: FlutterFlowTheme.of(context)
+                                            .textColor,
+                                        size: 40,
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(20, 12, 20, 12),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Text(
-                              'Upcoming Appointments',
-                              style: FlutterFlowTheme.of(context).bodyText1,
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        width: MediaQuery.of(context).size.width * 0.92,
-                        height: 70,
-                        decoration: BoxDecoration(
-                          color: FlutterFlowTheme.of(context).background,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: StreamBuilder<List<AppointmentsRecord>>(
-                          stream: queryAppointmentsRecord(),
-                          builder: (context, snapshot) {
-                            // Customize what your widget looks like when it's loading.
-                            if (!snapshot.hasData) {
-                              return Center(
-                                child: SizedBox(
-                                  width: 40,
-                                  height: 40,
-                                  child: SpinKitPumpingHeart(
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryColor,
-                                    size: 40,
-                                  ),
-                                ),
-                              );
-                            }
-                            List<AppointmentsRecord> rowAppointmentsRecordList =
-                                snapshot.data;
-                            return Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: List.generate(
-                                  rowAppointmentsRecordList.length, (rowIndex) {
-                                final rowAppointmentsRecord =
-                                    rowAppointmentsRecordList[rowIndex];
-                                return Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      8, 0, 0, 0),
-                                  child:
-                                      StreamBuilder<List<AppointmentsRecord>>(
-                                    stream: queryAppointmentsRecord(
-                                      singleRecord: true,
-                                    ),
-                                    builder: (context, snapshot) {
-                                      // Customize what your widget looks like when it's loading.
-                                      if (!snapshot.hasData) {
-                                        return Center(
-                                          child: SizedBox(
-                                            width: 40,
-                                            height: 40,
-                                            child: SpinKitPumpingHeart(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryColor,
-                                              size: 40,
-                                            ),
-                                          ),
-                                        );
-                                      }
-                                      List<AppointmentsRecord>
-                                          cardAppointmentsRecordList =
-                                          snapshot.data;
-                                      // Return an empty Container when the document does not exist.
-                                      if (snapshot.data.isEmpty) {
-                                        return Container();
-                                      }
-                                      final cardAppointmentsRecord =
-                                          cardAppointmentsRecordList.isNotEmpty
-                                              ? cardAppointmentsRecordList.first
-                                              : null;
-                                      return Card(
-                                        clipBehavior:
-                                            Clip.antiAliasWithSaveLayer,
-                                        color: Color(0x6639D2C0),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(40),
-                                        ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 8, 0, 0),
                                         child: Text(
-                                          dateTimeFormat(
-                                              'yMMMd',
-                                              rowAppointmentsRecord
-                                                  .appointmentTime),
+                                          'Transfer',
                                           style: FlutterFlowTheme.of(context)
                                               .bodyText1,
                                         ),
-                                      );
-                                    },
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                width: 110,
+                                height: 100,
+                                decoration: BoxDecoration(
+                                  color:
+                                      FlutterFlowTheme.of(context).background,
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    FaIcon(
+                                      FontAwesomeIcons.fileInvoice,
+                                      color: FlutterFlowTheme.of(context)
+                                          .textColor,
+                                      size: 40,
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0, 8, 0, 0),
+                                      child: Text(
+                                        'Invoice',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                width: 110,
+                                height: 100,
+                                decoration: BoxDecoration(
+                                  color:
+                                      FlutterFlowTheme.of(context).background,
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: InkWell(
+                                  onTap: () async {
+                                    await Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            AppointmentWidget(),
+                                      ),
+                                    );
+                                  },
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.people_rounded,
+                                        color: FlutterFlowTheme.of(context)
+                                            .textColor,
+                                        size: 40,
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 8, 0, 0),
+                                        child: Text(
+                                          'Appointment',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyText1,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding:
+                              EdgeInsetsDirectional.fromSTEB(20, 12, 20, 12),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Text(
+                                'Upcoming Appointments',
+                                style: FlutterFlowTheme.of(context).bodyText1,
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.92,
+                          height: 70,
+                          decoration: BoxDecoration(
+                            color: FlutterFlowTheme.of(context).background,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: StreamBuilder<List<AppointmentsRecord>>(
+                            stream: queryAppointmentsRecord(),
+                            builder: (context, snapshot) {
+                              // Customize what your widget looks like when it's loading.
+                              if (!snapshot.hasData) {
+                                return Center(
+                                  child: SizedBox(
+                                    width: 40,
+                                    height: 40,
+                                    child: SpinKitPumpingHeart(
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryColor,
+                                      size: 40,
+                                    ),
                                   ),
                                 );
-                              }),
-                            );
-                          },
+                              }
+                              List<AppointmentsRecord>
+                                  rowAppointmentsRecordList = snapshot.data;
+                              return Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: List.generate(
+                                    rowAppointmentsRecordList.length,
+                                    (rowIndex) {
+                                  final rowAppointmentsRecord =
+                                      rowAppointmentsRecordList[rowIndex];
+                                  return Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        8, 0, 0, 0),
+                                    child:
+                                        StreamBuilder<List<AppointmentsRecord>>(
+                                      stream: queryAppointmentsRecord(
+                                        singleRecord: true,
+                                      ),
+                                      builder: (context, snapshot) {
+                                        // Customize what your widget looks like when it's loading.
+                                        if (!snapshot.hasData) {
+                                          return Center(
+                                            child: SizedBox(
+                                              width: 40,
+                                              height: 40,
+                                              child: SpinKitPumpingHeart(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryColor,
+                                                size: 40,
+                                              ),
+                                            ),
+                                          );
+                                        }
+                                        List<AppointmentsRecord>
+                                            cardAppointmentsRecordList =
+                                            snapshot.data;
+                                        // Return an empty Container when the document does not exist.
+                                        if (snapshot.data.isEmpty) {
+                                          return Container();
+                                        }
+                                        final cardAppointmentsRecord =
+                                            cardAppointmentsRecordList
+                                                    .isNotEmpty
+                                                ? cardAppointmentsRecordList
+                                                    .first
+                                                : null;
+                                        return Card(
+                                          clipBehavior:
+                                              Clip.antiAliasWithSaveLayer,
+                                          color: Color(0x6639D2C0),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(40),
+                                          ),
+                                          child: StreamBuilder<
+                                              List<AppointmentsRecord>>(
+                                            stream: queryAppointmentsRecord(),
+                                            builder: (context, snapshot) {
+                                              // Customize what your widget looks like when it's loading.
+                                              if (!snapshot.hasData) {
+                                                return Center(
+                                                  child: SizedBox(
+                                                    width: 40,
+                                                    height: 40,
+                                                    child: SpinKitPumpingHeart(
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primaryColor,
+                                                      size: 40,
+                                                    ),
+                                                  ),
+                                                );
+                                              }
+                                              List<AppointmentsRecord>
+                                                  textAppointmentsRecordList =
+                                                  snapshot.data;
+                                              return Text(
+                                                dateTimeFormat(
+                                                    'yMMMd',
+                                                    rowAppointmentsRecord
+                                                        .appointmentTime),
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyText1,
+                                              );
+                                            },
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  );
+                                }),
+                              );
+                            },
+                          ),
                         ),
-                      ),
-                    ],
-                  ).animated([animationsMap['columnOnPageLoadAnimation']]),
+                      ],
+                    ).animated([animationsMap['columnOnPageLoadAnimation']]),
+                  ),
                 ),
               ),
             ],

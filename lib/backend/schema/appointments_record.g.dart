@@ -57,19 +57,19 @@ class _$AppointmentsRecordSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    value = object.appointmentContact;
-    if (value != null) {
-      result
-        ..add('appointmentContact')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(double)));
-    }
     value = object.appointmentTime;
     if (value != null) {
       result
         ..add('AppointmentTime')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(DateTime)));
+    }
+    value = object.appointmentContact;
+    if (value != null) {
+      result
+        ..add('AppointmentContact')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
     }
     value = object.reference;
     if (value != null) {
@@ -116,13 +116,13 @@ class _$AppointmentsRecordSerializer
           result.appointmentEmail = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
-        case 'appointmentContact':
-          result.appointmentContact = serializers.deserialize(value,
-              specifiedType: const FullType(double)) as double;
-          break;
         case 'AppointmentTime':
           result.appointmentTime = serializers.deserialize(value,
               specifiedType: const FullType(DateTime)) as DateTime;
+          break;
+        case 'AppointmentContact':
+          result.appointmentContact = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
           break;
         case 'Document__Reference__Field':
           result.reference = serializers.deserialize(value,
@@ -149,15 +149,15 @@ class _$AppointmentsRecord extends AppointmentsRecord {
   @override
   final String appointmentEmail;
   @override
-  final double appointmentContact;
-  @override
   final DateTime appointmentTime;
+  @override
+  final String appointmentContact;
   @override
   final DocumentReference<Object> reference;
 
   factory _$AppointmentsRecord(
           [void Function(AppointmentsRecordBuilder) updates]) =>
-      (new AppointmentsRecordBuilder()..update(updates)).build();
+      (new AppointmentsRecordBuilder()..update(updates))._build();
 
   _$AppointmentsRecord._(
       {this.appointmentName,
@@ -165,8 +165,8 @@ class _$AppointmentsRecord extends AppointmentsRecord {
       this.appointmentPerson,
       this.appointmentType,
       this.appointmentEmail,
-      this.appointmentContact,
       this.appointmentTime,
+      this.appointmentContact,
       this.reference})
       : super._();
 
@@ -188,8 +188,8 @@ class _$AppointmentsRecord extends AppointmentsRecord {
         appointmentPerson == other.appointmentPerson &&
         appointmentType == other.appointmentType &&
         appointmentEmail == other.appointmentEmail &&
-        appointmentContact == other.appointmentContact &&
         appointmentTime == other.appointmentTime &&
+        appointmentContact == other.appointmentContact &&
         reference == other.reference;
   }
 
@@ -206,21 +206,21 @@ class _$AppointmentsRecord extends AppointmentsRecord {
                             appointmentPerson.hashCode),
                         appointmentType.hashCode),
                     appointmentEmail.hashCode),
-                appointmentContact.hashCode),
-            appointmentTime.hashCode),
+                appointmentTime.hashCode),
+            appointmentContact.hashCode),
         reference.hashCode));
   }
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('AppointmentsRecord')
+    return (newBuiltValueToStringHelper(r'AppointmentsRecord')
           ..add('appointmentName', appointmentName)
           ..add('appointmentDescription', appointmentDescription)
           ..add('appointmentPerson', appointmentPerson)
           ..add('appointmentType', appointmentType)
           ..add('appointmentEmail', appointmentEmail)
-          ..add('appointmentContact', appointmentContact)
           ..add('appointmentTime', appointmentTime)
+          ..add('appointmentContact', appointmentContact)
           ..add('reference', reference))
         .toString();
   }
@@ -255,15 +255,15 @@ class AppointmentsRecordBuilder
   set appointmentEmail(String appointmentEmail) =>
       _$this._appointmentEmail = appointmentEmail;
 
-  double _appointmentContact;
-  double get appointmentContact => _$this._appointmentContact;
-  set appointmentContact(double appointmentContact) =>
-      _$this._appointmentContact = appointmentContact;
-
   DateTime _appointmentTime;
   DateTime get appointmentTime => _$this._appointmentTime;
   set appointmentTime(DateTime appointmentTime) =>
       _$this._appointmentTime = appointmentTime;
+
+  String _appointmentContact;
+  String get appointmentContact => _$this._appointmentContact;
+  set appointmentContact(String appointmentContact) =>
+      _$this._appointmentContact = appointmentContact;
 
   DocumentReference<Object> _reference;
   DocumentReference<Object> get reference => _$this._reference;
@@ -282,8 +282,8 @@ class AppointmentsRecordBuilder
       _appointmentPerson = $v.appointmentPerson;
       _appointmentType = $v.appointmentType;
       _appointmentEmail = $v.appointmentEmail;
-      _appointmentContact = $v.appointmentContact;
       _appointmentTime = $v.appointmentTime;
+      _appointmentContact = $v.appointmentContact;
       _reference = $v.reference;
       _$v = null;
     }
@@ -302,7 +302,9 @@ class AppointmentsRecordBuilder
   }
 
   @override
-  _$AppointmentsRecord build() {
+  AppointmentsRecord build() => _build();
+
+  _$AppointmentsRecord _build() {
     final _$result = _$v ??
         new _$AppointmentsRecord._(
             appointmentName: appointmentName,
@@ -310,12 +312,12 @@ class AppointmentsRecordBuilder
             appointmentPerson: appointmentPerson,
             appointmentType: appointmentType,
             appointmentEmail: appointmentEmail,
-            appointmentContact: appointmentContact,
             appointmentTime: appointmentTime,
+            appointmentContact: appointmentContact,
             reference: reference);
     replace(_$result);
     return _$result;
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas

@@ -1,4 +1,3 @@
-import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../budget_details/budget_details_widget.dart';
 import '../create_budget/create_budget_widget.dart';
@@ -275,11 +274,7 @@ class _MYBudgetsWidgetState extends State<MYBudgetsWidget>
                     ),
                   ),
                   StreamBuilder<List<BudgetsRecord>>(
-                    stream: queryBudgetsRecord(
-                      queryBuilder: (budgetsRecord) => budgetsRecord.where(
-                          'userBudgets',
-                          isEqualTo: currentUserReference),
-                    ),
+                    stream: queryBudgetsRecord(),
                     builder: (context, snapshot) {
                       // Customize what your widget looks like when it's loading.
                       if (!snapshot.hasData) {

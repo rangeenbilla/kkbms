@@ -47,12 +47,6 @@ class _$UsersRecordSerializer implements StructuredSerializer<UsersRecord> {
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    value = object.age;
-    if (value != null) {
-      result
-        ..add('age')
-        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
-    }
     value = object.location;
     if (value != null) {
       result
@@ -133,10 +127,6 @@ class _$UsersRecordSerializer implements StructuredSerializer<UsersRecord> {
           result.uid = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
-        case 'age':
-          result.age = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
-          break;
         case 'location':
           result.location = serializers.deserialize(value,
               specifiedType: const FullType(LatLng)) as LatLng;
@@ -184,8 +174,6 @@ class _$UsersRecord extends UsersRecord {
   @override
   final String uid;
   @override
-  final int age;
-  @override
   final LatLng location;
   @override
   final String phoneNumber;
@@ -201,14 +189,13 @@ class _$UsersRecord extends UsersRecord {
   final DocumentReference<Object> reference;
 
   factory _$UsersRecord([void Function(UsersRecordBuilder) updates]) =>
-      (new UsersRecordBuilder()..update(updates)).build();
+      (new UsersRecordBuilder()..update(updates))._build();
 
   _$UsersRecord._(
       {this.displayName,
       this.email,
       this.password,
       this.uid,
-      this.age,
       this.location,
       this.phoneNumber,
       this.photoUrl,
@@ -233,7 +220,6 @@ class _$UsersRecord extends UsersRecord {
         email == other.email &&
         password == other.password &&
         uid == other.uid &&
-        age == other.age &&
         location == other.location &&
         phoneNumber == other.phoneNumber &&
         photoUrl == other.photoUrl &&
@@ -254,12 +240,10 @@ class _$UsersRecord extends UsersRecord {
                             $jc(
                                 $jc(
                                     $jc(
-                                        $jc(
-                                            $jc($jc(0, displayName.hashCode),
-                                                email.hashCode),
-                                            password.hashCode),
-                                        uid.hashCode),
-                                    age.hashCode),
+                                        $jc($jc(0, displayName.hashCode),
+                                            email.hashCode),
+                                        password.hashCode),
+                                    uid.hashCode),
                                 location.hashCode),
                             phoneNumber.hashCode),
                         photoUrl.hashCode),
@@ -271,12 +255,11 @@ class _$UsersRecord extends UsersRecord {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('UsersRecord')
+    return (newBuiltValueToStringHelper(r'UsersRecord')
           ..add('displayName', displayName)
           ..add('email', email)
           ..add('password', password)
           ..add('uid', uid)
-          ..add('age', age)
           ..add('location', location)
           ..add('phoneNumber', phoneNumber)
           ..add('photoUrl', photoUrl)
@@ -306,10 +289,6 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
   String _uid;
   String get uid => _$this._uid;
   set uid(String uid) => _$this._uid = uid;
-
-  int _age;
-  int get age => _$this._age;
-  set age(int age) => _$this._age = age;
 
   LatLng _location;
   LatLng get location => _$this._location;
@@ -351,7 +330,6 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
       _email = $v.email;
       _password = $v.password;
       _uid = $v.uid;
-      _age = $v.age;
       _location = $v.location;
       _phoneNumber = $v.phoneNumber;
       _photoUrl = $v.photoUrl;
@@ -376,14 +354,15 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
   }
 
   @override
-  _$UsersRecord build() {
+  UsersRecord build() => _build();
+
+  _$UsersRecord _build() {
     final _$result = _$v ??
         new _$UsersRecord._(
             displayName: displayName,
             email: email,
             password: password,
             uid: uid,
-            age: age,
             location: location,
             phoneNumber: phoneNumber,
             photoUrl: photoUrl,
@@ -396,4 +375,4 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas

@@ -75,15 +75,13 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(brightness: Brightness.light),
       themeMode: _themeMode,
       home: initialUser == null || displaySplashImage
-          ? Container(
-              color: Colors.transparent,
-              child: Center(
-                child: Builder(
-                  builder: (context) => Image.asset(
-                    'assets/images/Medical_ScheduleApp_0.0.png',
-                    width: MediaQuery.of(context).size.width,
-                    fit: BoxFit.fitWidth,
-                  ),
+          ? Center(
+              child: SizedBox(
+                width: 40,
+                height: 40,
+                child: SpinKitPumpingHeart(
+                  color: FlutterFlowTheme.of(context).primaryColor,
+                  size: 40,
                 ),
               ),
             )

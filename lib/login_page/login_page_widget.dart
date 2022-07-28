@@ -1,12 +1,10 @@
 import '../auth/auth_util.dart';
-import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../forgot_password/forgot_password_widget.dart';
-import '../home_page_alt_1/home_page_alt1_widget.dart';
+import '../onboarding/onboarding_widget.dart';
 import '../register_account/register_account_widget.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -282,13 +280,12 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                         return;
                                       }
 
-                                      await Navigator.pushAndRemoveUntil(
+                                      await Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) =>
-                                              HomePageAlt1Widget(),
+                                              OnboardingWidget(),
                                         ),
-                                        (r) => false,
                                       );
                                     },
                                     text: 'Login',
@@ -394,20 +391,11 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                             if (user == null) {
                               return;
                             }
-
-                            final budgetListCreateData =
-                                createBudgetListRecordData(
-                              budgetUser: currentUserReference,
-                            );
-                            await BudgetListRecord.collection
-                                .doc()
-                                .set(budgetListCreateData);
-                            await Navigator.pushAndRemoveUntil(
+                            await Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => HomePageAlt1Widget(),
+                                builder: (context) => OnboardingWidget(),
                               ),
-                              (r) => false,
                             );
                           },
                           text: 'Continue as Guest',

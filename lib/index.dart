@@ -10,8 +10,8 @@ export 'onboarding/onboarding_widget.dart' show OnboardingWidget;
 export 'm_y_profile_page/m_y_profile_page_widget.dart' show MYProfilePageWidget;
 export 'budget_details/budget_details_widget.dart' show BudgetDetailsWidget;
 export 'home_page_alt_1/home_page_alt1_widget.dart' show HomePageAlt1Widget;
-export 'transfer_funds/transfer_funds_widget.dart' show TransferFundsWidget;
 export 'create_budget/create_budget_widget.dart' show CreateBudgetWidget;
+export 'transfer_funds/transfer_funds_widget.dart' show TransferFundsWidget;
 export 'transfer_complete/transfer_complete_widget.dart'
     show TransferCompleteWidget;
 export 'notifications_settings/notifications_settings_widget.dart'

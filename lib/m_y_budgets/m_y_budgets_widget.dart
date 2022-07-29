@@ -1,9 +1,10 @@
 import '../backend/backend.dart';
+import '../budget_d_e_l_e_t_e/budget_d_e_l_e_t_e_widget.dart';
 import '../budget_details/budget_details_widget.dart';
-import '../create_budget/create_budget_widget.dart';
 import '../flutter_flow/flutter_flow_animations.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import '../main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -99,7 +100,7 @@ class _MYBudgetsWidgetState extends State<MYBudgetsWidget>
               type: PageTransitionType.bottomToTop,
               duration: Duration(milliseconds: 220),
               reverseDuration: Duration(milliseconds: 220),
-              child: CreateBudgetWidget(),
+              child: NavBarPage(initialPage: 'createBudget'),
             ),
           );
         },
@@ -353,18 +354,30 @@ class _MYBudgetsWidgetState extends State<MYBudgetsWidget>
                                                   FlutterFlowTheme.of(context)
                                                       .bodyText2,
                                             ),
-                                            Icon(
-                                              Icons.arrow_forward_ios_rounded,
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .textColor,
-                                              size: 16,
+                                            InkWell(
+                                              onTap: () async {
+                                                await Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        BudgetDELETEWidget(),
+                                                  ),
+                                                );
+                                              },
+                                              child: Icon(
+                                                Icons.delete,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .textColor,
+                                                size: 16,
+                                              ),
                                             ),
                                           ],
                                         ),
                                       ),
                                       Text(
-                                        '\$${listViewBudgetsRecord.budgetAmount}',
+                                        listViewBudgetsRecord.budgetAmount
+                                            .toString(),
                                         style:
                                             FlutterFlowTheme.of(context).title1,
                                       ),
@@ -412,7 +425,7 @@ class _MYBudgetsWidgetState extends State<MYBudgetsWidget>
                                                   valueOrDefault<String>(
                                                     listViewBudgetsRecord
                                                         .budgetSpent,
-                                                    '\$22,000',
+                                                    '00',
                                                   ),
                                                   textAlign: TextAlign.end,
                                                   style: FlutterFlowTheme.of(

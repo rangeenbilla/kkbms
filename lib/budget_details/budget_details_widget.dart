@@ -130,7 +130,7 @@ class _BudgetDetailsWidgetState extends State<BudgetDetailsWidget> {
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
                               child: Text(
-                                '\$${budgetDetailsBudgetsRecord.budgetAmount}',
+                                '\$${budgetDetailsBudgetsRecord.budgetAmount?.toString()}',
                                 style: FlutterFlowTheme.of(context)
                                     .title1
                                     .override(

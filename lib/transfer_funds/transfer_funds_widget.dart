@@ -155,10 +155,7 @@ class _TransferFundsWidgetState extends State<TransferFundsWidget>
             ),
             child: Container(
               width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height * 0.8,
-              constraints: BoxConstraints(
-                maxHeight: MediaQuery.of(context).size.height * 0.84,
-              ),
+              height: MediaQuery.of(context).size.height * 0.73,
               decoration: BoxDecoration(
                 color: FlutterFlowTheme.of(context).darkBackground,
                 borderRadius: BorderRadius.only(
@@ -171,7 +168,7 @@ class _TransferFundsWidgetState extends State<TransferFundsWidget>
               child: Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(20, 44, 20, 20),
                 child: Column(
-                  mainAxisSize: MainAxisSize.max,
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     Row(
                       mainAxisSize: MainAxisSize.max,
@@ -290,7 +287,8 @@ class _TransferFundsWidgetState extends State<TransferFundsWidget>
                                                   ? textBudgetsRecordList.first
                                                   : null;
                                           return Text(
-                                            textBudgetsRecord.budgetAmount,
+                                            textBudgetsRecord.budgetAmount
+                                                .toString(),
                                             style: FlutterFlowTheme.of(context)
                                                 .title1
                                                 .override(

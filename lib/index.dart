@@ -19,6 +19,8 @@ export 'notifications_settings/notifications_settings_widget.dart'
 export 'change_password/change_password_widget.dart' show ChangePasswordWidget;
 export 'privacy_policy/privacy_policy_widget.dart' show PrivacyPolicyWidget;
 export 'm_y_budgets/m_y_budgets_widget.dart' show MYBudgetsWidget;
+export 'appointment/appointment_widget.dart' show AppointmentWidget;
 export 'budget_d_e_l_e_t_e/budget_d_e_l_e_t_e_widget.dart'
     show BudgetDELETEWidget;
-export 'appointment/appointment_widget.dart' show AppointmentWidget;
+export 'appointment_page/appointment_page_widget.dart'
+    show AppointmentPageWidget;

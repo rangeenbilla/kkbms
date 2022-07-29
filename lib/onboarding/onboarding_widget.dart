@@ -2,7 +2,7 @@ import '../flutter_flow/flutter_flow_animations.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-import '../home_page_alt_1/home_page_alt1_widget.dart';
+import '../main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -347,7 +347,8 @@ class _OnboardingWidgetState extends State<OnboardingWidget>
                         await Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => HomePageAlt1Widget(),
+                            builder: (context) =>
+                                NavBarPage(initialPage: 'homePage_alt_1'),
                           ),
                         );
                       },

@@ -167,10 +167,10 @@ Future verifySmsCode({
 }
 
 DocumentReference get currentUserReference => currentUser?.user != null
-    ? Users2Record.collection.doc(currentUser.user.uid)
+    ? UsersRecord.collection.doc(currentUser.user.uid)
     : null;
 
-Users2Record currentUserDocument;
+UsersRecord currentUserDocument;
 final authenticatedUserStream = FirebaseAuth.instance
     .authStateChanges()
     .map<String>((user) {
@@ -183,7 +183,7 @@ final authenticatedUserStream = FirebaseAuth.instance
     .switchMap(
       (uid) => uid.isEmpty
           ? Stream.value(null)
-          : Users2Record.getDocument(Users2Record.collection.doc(uid))
+          : UsersRecord.getDocument(UsersRecord.collection.doc(uid))
               .handleError((_) {}),
     )
     .map((user) => currentUserDocument = user)

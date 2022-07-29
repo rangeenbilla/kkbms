@@ -14,9 +14,6 @@ abstract class BudgetsRecord
   String get budetName;
 
   @nullable
-  String get budgetAmount;
-
-  @nullable
   DateTime get budgetCreated;
 
   @nullable
@@ -35,15 +32,18 @@ abstract class BudgetsRecord
   String get budgetTime;
 
   @nullable
+  double get budgetAmount;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
   static void _initializeBuilder(BudgetsRecordBuilder builder) => builder
     ..budetName = ''
-    ..budgetAmount = ''
     ..budgetDescription = ''
     ..budgetSpent = ''
-    ..budgetTime = '';
+    ..budgetTime = ''
+    ..budgetAmount = 0.0;
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('budgets');
@@ -68,22 +68,22 @@ abstract class BudgetsRecord
 
 Map<String, dynamic> createBudgetsRecordData({
   String budetName,
-  String budgetAmount,
   DateTime budgetCreated,
   String budgetDescription,
   DocumentReference userBudgets,
   String budgetSpent,
   DateTime budgetStartDate,
   String budgetTime,
+  double budgetAmount,
 }) =>
     serializers.toFirestore(
         BudgetsRecord.serializer,
         BudgetsRecord((b) => b
           ..budetName = budetName
-          ..budgetAmount = budgetAmount
           ..budgetCreated = budgetCreated
           ..budgetDescription = budgetDescription
           ..userBudgets = userBudgets
           ..budgetSpent = budgetSpent
           ..budgetStartDate = budgetStartDate
-          ..budgetTime = budgetTime));
+          ..budgetTime = budgetTime
+          ..budgetAmount = budgetAmount));

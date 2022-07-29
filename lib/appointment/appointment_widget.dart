@@ -19,16 +19,16 @@ class AppointmentWidget extends StatefulWidget {
 
 class _AppointmentWidgetState extends State<AppointmentWidget> {
   DateTime datePicked;
-  TextEditingController personsNameController1;
-  TextEditingController personsNameController2;
+  TextEditingController personsContactController;
+  TextEditingController personsNameController;
   TextEditingController problemDescriptionController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    personsNameController1 = TextEditingController();
-    personsNameController2 = TextEditingController();
+    personsContactController = TextEditingController();
+    personsNameController = TextEditingController();
     problemDescriptionController = TextEditingController();
   }
 
@@ -115,11 +115,11 @@ class _AppointmentWidgetState extends State<AppointmentWidget> {
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
                         child: TextFormField(
-                          controller: personsNameController1,
+                          controller: personsNameController,
                           onFieldSubmitted: (_) async {
                             final appointmentsCreateData =
                                 createAppointmentsRecordData(
-                              appointmentName: '',
+                              appointmentName: personsContactController.text,
                             );
                             await AppointmentsRecord.collection
                                 .doc()
@@ -161,11 +161,11 @@ class _AppointmentWidgetState extends State<AppointmentWidget> {
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
                         child: TextFormField(
-                          controller: personsNameController2,
+                          controller: personsContactController,
                           onFieldSubmitted: (_) async {
                             final appointmentsCreateData =
                                 createAppointmentsRecordData(
-                              appointmentContact: '',
+                              appointmentContact: personsContactController.text,
                             );
                             await AppointmentsRecord.collection
                                 .doc()
@@ -202,6 +202,7 @@ class _AppointmentWidgetState extends State<AppointmentWidget> {
                                 color: FlutterFlowTheme.of(context).textColor,
                                 fontWeight: FontWeight.bold,
                               ),
+                          keyboardType: TextInputType.phone,
                         ),
                       ),
                       Padding(
@@ -211,7 +212,8 @@ class _AppointmentWidgetState extends State<AppointmentWidget> {
                           onFieldSubmitted: (_) async {
                             final appointmentsCreateData =
                                 createAppointmentsRecordData(
-                              appointmentDescription: '',
+                              appointmentDescription:
+                                  problemDescriptionController.text,
                             );
                             await AppointmentsRecord.collection
                                 .doc()
@@ -265,6 +267,14 @@ class _AppointmentWidgetState extends State<AppointmentWidget> {
                               currentTime: getCurrentTimestamp,
                               minTime: DateTime(0, 0, 0),
                             );
+
+                            final appointmentsCreateData =
+                                createAppointmentsRecordData(
+                              appointmentTime: datePicked,
+                            );
+                            await AppointmentsRecord.collection
+                                .doc()
+                                .set(appointmentsCreateData);
                           },
                           child: Material(
                             color: Colors.transparent,

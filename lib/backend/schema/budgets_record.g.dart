@@ -27,13 +27,6 @@ class _$BudgetsRecordSerializer implements StructuredSerializer<BudgetsRecord> {
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    value = object.budgetAmount;
-    if (value != null) {
-      result
-        ..add('budgetAmount')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
-    }
     value = object.budgetCreated;
     if (value != null) {
       result
@@ -77,6 +70,13 @@ class _$BudgetsRecordSerializer implements StructuredSerializer<BudgetsRecord> {
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
+    value = object.budgetAmount;
+    if (value != null) {
+      result
+        ..add('budgetAmount')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(double)));
+    }
     value = object.reference;
     if (value != null) {
       result
@@ -102,10 +102,6 @@ class _$BudgetsRecordSerializer implements StructuredSerializer<BudgetsRecord> {
       switch (key) {
         case 'budetName':
           result.budetName = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
-          break;
-        case 'budgetAmount':
-          result.budgetAmount = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
         case 'budgetCreated':
@@ -134,6 +130,10 @@ class _$BudgetsRecordSerializer implements StructuredSerializer<BudgetsRecord> {
           result.budgetTime = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
+        case 'budgetAmount':
+          result.budgetAmount = serializers.deserialize(value,
+              specifiedType: const FullType(double)) as double;
+          break;
         case 'Document__Reference__Field':
           result.reference = serializers.deserialize(value,
                   specifiedType: const FullType(
@@ -151,8 +151,6 @@ class _$BudgetsRecord extends BudgetsRecord {
   @override
   final String budetName;
   @override
-  final String budgetAmount;
-  @override
   final DateTime budgetCreated;
   @override
   final String budgetDescription;
@@ -165,6 +163,8 @@ class _$BudgetsRecord extends BudgetsRecord {
   @override
   final String budgetTime;
   @override
+  final double budgetAmount;
+  @override
   final DocumentReference<Object> reference;
 
   factory _$BudgetsRecord([void Function(BudgetsRecordBuilder) updates]) =>
@@ -172,13 +172,13 @@ class _$BudgetsRecord extends BudgetsRecord {
 
   _$BudgetsRecord._(
       {this.budetName,
-      this.budgetAmount,
       this.budgetCreated,
       this.budgetDescription,
       this.userBudgets,
       this.budgetSpent,
       this.budgetStartDate,
       this.budgetTime,
+      this.budgetAmount,
       this.reference})
       : super._();
 
@@ -194,13 +194,13 @@ class _$BudgetsRecord extends BudgetsRecord {
     if (identical(other, this)) return true;
     return other is BudgetsRecord &&
         budetName == other.budetName &&
-        budgetAmount == other.budgetAmount &&
         budgetCreated == other.budgetCreated &&
         budgetDescription == other.budgetDescription &&
         userBudgets == other.userBudgets &&
         budgetSpent == other.budgetSpent &&
         budgetStartDate == other.budgetStartDate &&
         budgetTime == other.budgetTime &&
+        budgetAmount == other.budgetAmount &&
         reference == other.reference;
   }
 
@@ -214,13 +214,13 @@ class _$BudgetsRecord extends BudgetsRecord {
                         $jc(
                             $jc(
                                 $jc($jc(0, budetName.hashCode),
-                                    budgetAmount.hashCode),
-                                budgetCreated.hashCode),
-                            budgetDescription.hashCode),
-                        userBudgets.hashCode),
-                    budgetSpent.hashCode),
-                budgetStartDate.hashCode),
-            budgetTime.hashCode),
+                                    budgetCreated.hashCode),
+                                budgetDescription.hashCode),
+                            userBudgets.hashCode),
+                        budgetSpent.hashCode),
+                    budgetStartDate.hashCode),
+                budgetTime.hashCode),
+            budgetAmount.hashCode),
         reference.hashCode));
   }
 
@@ -228,13 +228,13 @@ class _$BudgetsRecord extends BudgetsRecord {
   String toString() {
     return (newBuiltValueToStringHelper(r'BudgetsRecord')
           ..add('budetName', budetName)
-          ..add('budgetAmount', budgetAmount)
           ..add('budgetCreated', budgetCreated)
           ..add('budgetDescription', budgetDescription)
           ..add('userBudgets', userBudgets)
           ..add('budgetSpent', budgetSpent)
           ..add('budgetStartDate', budgetStartDate)
           ..add('budgetTime', budgetTime)
+          ..add('budgetAmount', budgetAmount)
           ..add('reference', reference))
         .toString();
   }
@@ -247,10 +247,6 @@ class BudgetsRecordBuilder
   String _budetName;
   String get budetName => _$this._budetName;
   set budetName(String budetName) => _$this._budetName = budetName;
-
-  String _budgetAmount;
-  String get budgetAmount => _$this._budgetAmount;
-  set budgetAmount(String budgetAmount) => _$this._budgetAmount = budgetAmount;
 
   DateTime _budgetCreated;
   DateTime get budgetCreated => _$this._budgetCreated;
@@ -280,6 +276,10 @@ class BudgetsRecordBuilder
   String get budgetTime => _$this._budgetTime;
   set budgetTime(String budgetTime) => _$this._budgetTime = budgetTime;
 
+  double _budgetAmount;
+  double get budgetAmount => _$this._budgetAmount;
+  set budgetAmount(double budgetAmount) => _$this._budgetAmount = budgetAmount;
+
   DocumentReference<Object> _reference;
   DocumentReference<Object> get reference => _$this._reference;
   set reference(DocumentReference<Object> reference) =>
@@ -293,13 +293,13 @@ class BudgetsRecordBuilder
     final $v = _$v;
     if ($v != null) {
       _budetName = $v.budetName;
-      _budgetAmount = $v.budgetAmount;
       _budgetCreated = $v.budgetCreated;
       _budgetDescription = $v.budgetDescription;
       _userBudgets = $v.userBudgets;
       _budgetSpent = $v.budgetSpent;
       _budgetStartDate = $v.budgetStartDate;
       _budgetTime = $v.budgetTime;
+      _budgetAmount = $v.budgetAmount;
       _reference = $v.reference;
       _$v = null;
     }
@@ -324,13 +324,13 @@ class BudgetsRecordBuilder
     final _$result = _$v ??
         new _$BudgetsRecord._(
             budetName: budetName,
-            budgetAmount: budgetAmount,
             budgetCreated: budgetCreated,
             budgetDescription: budgetDescription,
             userBudgets: userBudgets,
             budgetSpent: budgetSpent,
             budgetStartDate: budgetStartDate,
             budgetTime: budgetTime,
+            budgetAmount: budgetAmount,
             reference: reference);
     replace(_$result);
     return _$result;

@@ -454,13 +454,13 @@ Future<FFFirestorePage<T>> queryCollectionPage<T>(
 
 // Creates a Firestore document representing the logged in user if it doesn't yet exist
 Future maybeCreateUser(User user) async {
-  final userRecord = Users2Record.collection.doc(user.uid);
+  final userRecord = UsersRecord.collection.doc(user.uid);
   final userExists = await userRecord.get().then((u) => u.exists);
   if (userExists) {
     return;
   }
 
-  final userData = createUsers2RecordData(
+  final userData = createUsersRecordData(
     email: user.email,
     displayName: user.displayName,
     photoUrl: user.photoURL,

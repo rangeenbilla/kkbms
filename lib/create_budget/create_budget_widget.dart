@@ -17,8 +17,8 @@ class CreateBudgetWidget extends StatefulWidget {
 }
 
 class _CreateBudgetWidgetState extends State<CreateBudgetWidget> {
-  TextEditingController budgetNameController1;
-  TextEditingController budgetNameController2;
+  TextEditingController amountController;
+  TextEditingController nameController;
   TextEditingController textController3;
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -26,8 +26,8 @@ class _CreateBudgetWidgetState extends State<CreateBudgetWidget> {
   @override
   void initState() {
     super.initState();
-    budgetNameController1 = TextEditingController();
-    budgetNameController2 = TextEditingController();
+    amountController = TextEditingController();
+    nameController = TextEditingController();
     textController3 = TextEditingController();
   }
 
@@ -40,7 +40,7 @@ class _CreateBudgetWidgetState extends State<CreateBudgetWidget> {
         key: formKey,
         autovalidateMode: AutovalidateMode.disabled,
         child: Column(
-          mainAxisSize: MainAxisSize.max,
+          mainAxisSize: MainAxisSize.min,
           children: [
             Material(
               color: Colors.transparent,
@@ -55,7 +55,7 @@ class _CreateBudgetWidgetState extends State<CreateBudgetWidget> {
               ),
               child: Container(
                 width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 0.8,
+                height: MediaQuery.of(context).size.height * 0.75,
                 decoration: BoxDecoration(
                   color: FlutterFlowTheme.of(context).darkBackground,
                   borderRadius: BorderRadius.only(
@@ -66,9 +66,9 @@ class _CreateBudgetWidgetState extends State<CreateBudgetWidget> {
                   ),
                 ),
                 child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(20, 44, 20, 20),
+                  padding: EdgeInsetsDirectional.fromSTEB(20, 44, 20, 0),
                   child: Column(
-                    mainAxisSize: MainAxisSize.max,
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                       Row(
                         mainAxisSize: MainAxisSize.max,
@@ -102,160 +102,11 @@ class _CreateBudgetWidgetState extends State<CreateBudgetWidget> {
                       ),
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
-                        child: StreamBuilder<List<BudgetsRecord>>(
-                          stream: queryBudgetsRecord(
-                            singleRecord: true,
-                          ),
-                          builder: (context, snapshot) {
-                            // Customize what your widget looks like when it's loading.
-                            if (!snapshot.hasData) {
-                              return Center(
-                                child: SizedBox(
-                                  width: 40,
-                                  height: 40,
-                                  child: SpinKitPumpingHeart(
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryColor,
-                                    size: 40,
-                                  ),
-                                ),
-                              );
-                            }
-                            List<BudgetsRecord> budgetNameBudgetsRecordList =
-                                snapshot.data;
-                            // Return an empty Container when the document does not exist.
-                            if (snapshot.data.isEmpty) {
-                              return Container();
-                            }
-                            final budgetNameBudgetsRecord =
-                                budgetNameBudgetsRecordList.isNotEmpty
-                                    ? budgetNameBudgetsRecordList.first
-                                    : null;
-                            return TextFormField(
-                              controller: budgetNameController1,
-                              onFieldSubmitted: (_) async {
-                                final budgetsCreateData =
-                                    createBudgetsRecordData(
-                                  budgetAmount: '',
-                                );
-                                await BudgetsRecord.collection
-                                    .doc()
-                                    .set(budgetsCreateData);
-
-                                final usersUpdateData = createUsersRecordData();
-                                await budgetNameBudgetsRecord.userBudgets
-                                    .update(usersUpdateData);
-                              },
-                              obscureText: false,
-                              decoration: InputDecoration(
-                                labelText: 'Enter Amount',
-                                labelStyle:
-                                    FlutterFlowTheme.of(context).subtitle1,
-                                hintStyle:
-                                    FlutterFlowTheme.of(context).bodyText1,
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color:
-                                        FlutterFlowTheme.of(context).background,
-                                    width: 2,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color:
-                                        FlutterFlowTheme.of(context).background,
-                                    width: 2,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                contentPadding: EdgeInsetsDirectional.fromSTEB(
-                                    20, 32, 24, 32),
-                              ),
-                              style: FlutterFlowTheme.of(context).title3,
-                              textAlign: TextAlign.start,
-                              keyboardType: TextInputType.number,
-                            );
-                          },
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
-                        child: StreamBuilder<List<BudgetsRecord>>(
-                          stream: queryBudgetsRecord(
-                            singleRecord: true,
-                          ),
-                          builder: (context, snapshot) {
-                            // Customize what your widget looks like when it's loading.
-                            if (!snapshot.hasData) {
-                              return Center(
-                                child: SizedBox(
-                                  width: 40,
-                                  height: 40,
-                                  child: SpinKitPumpingHeart(
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryColor,
-                                    size: 40,
-                                  ),
-                                ),
-                              );
-                            }
-                            List<BudgetsRecord> budgetNameBudgetsRecordList =
-                                snapshot.data;
-                            // Return an empty Container when the document does not exist.
-                            if (snapshot.data.isEmpty) {
-                              return Container();
-                            }
-                            final budgetNameBudgetsRecord =
-                                budgetNameBudgetsRecordList.isNotEmpty
-                                    ? budgetNameBudgetsRecordList.first
-                                    : null;
-                            return TextFormField(
-                              controller: budgetNameController2,
-                              onFieldSubmitted: (_) async {
-                                final usersUpdateData = createUsersRecordData();
-                                await budgetNameBudgetsRecord.userBudgets
-                                    .update(usersUpdateData);
-                              },
-                              obscureText: false,
-                              decoration: InputDecoration(
-                                labelText: 'Budget Name',
-                                labelStyle:
-                                    FlutterFlowTheme.of(context).subtitle1,
-                                hintStyle:
-                                    FlutterFlowTheme.of(context).bodyText1,
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color:
-                                        FlutterFlowTheme.of(context).background,
-                                    width: 2,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color:
-                                        FlutterFlowTheme.of(context).background,
-                                    width: 2,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                contentPadding: EdgeInsetsDirectional.fromSTEB(
-                                    20, 32, 24, 32),
-                              ),
-                              style: FlutterFlowTheme.of(context).title3,
-                              textAlign: TextAlign.start,
-                            );
-                          },
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
                         child: TextFormField(
-                          controller: textController3,
+                          controller: nameController,
                           onFieldSubmitted: (_) async {
                             final budgetsCreateData = createBudgetsRecordData(
-                              budgetDescription: '',
+                              budetName: nameController.text,
                             );
                             await BudgetsRecord.collection
                                 .doc()
@@ -263,8 +114,8 @@ class _CreateBudgetWidgetState extends State<CreateBudgetWidget> {
                           },
                           obscureText: false,
                           decoration: InputDecoration(
+                            labelText: 'Budget Name',
                             labelStyle: FlutterFlowTheme.of(context).bodyText1,
-                            hintText: 'Description',
                             hintStyle: FlutterFlowTheme.of(context).bodyText1,
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
@@ -288,6 +139,102 @@ class _CreateBudgetWidgetState extends State<CreateBudgetWidget> {
                               .override(
                                 fontFamily: 'Open Sans',
                                 color: FlutterFlowTheme.of(context).textColor,
+                              ),
+                          textAlign: TextAlign.start,
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
+                        child: Container(
+                          width: double.infinity,
+                          child: TextFormField(
+                            controller: amountController,
+                            onFieldSubmitted: (_) async {
+                              final budgetsCreateData = createBudgetsRecordData(
+                                budgetAmount:
+                                    double.parse(amountController.text),
+                              );
+                              await BudgetsRecord.collection
+                                  .doc()
+                                  .set(budgetsCreateData);
+                            },
+                            obscureText: false,
+                            decoration: InputDecoration(
+                              labelText: 'Amount',
+                              labelStyle:
+                                  FlutterFlowTheme.of(context).bodyText1,
+                              hintStyle: FlutterFlowTheme.of(context).bodyText1,
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color:
+                                      FlutterFlowTheme.of(context).background,
+                                  width: 2,
+                                ),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color:
+                                      FlutterFlowTheme.of(context).background,
+                                  width: 2,
+                                ),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              contentPadding:
+                                  EdgeInsetsDirectional.fromSTEB(20, 40, 24, 0),
+                            ),
+                            style: FlutterFlowTheme.of(context)
+                                .bodyText1
+                                .override(
+                                  fontFamily: 'Open Sans',
+                                  color: FlutterFlowTheme.of(context).textColor,
+                                  fontWeight: FontWeight.normal,
+                                ),
+                            textAlign: TextAlign.start,
+                            keyboardType: TextInputType.number,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
+                        child: TextFormField(
+                          controller: textController3,
+                          onFieldSubmitted: (_) async {
+                            final budgetsCreateData = createBudgetsRecordData(
+                              budgetDescription: '',
+                            );
+                            await BudgetsRecord.collection
+                                .doc()
+                                .set(budgetsCreateData);
+                          },
+                          obscureText: false,
+                          decoration: InputDecoration(
+                            labelText: 'Description',
+                            labelStyle: FlutterFlowTheme.of(context).bodyText1,
+                            hintStyle: FlutterFlowTheme.of(context).bodyText1,
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).background,
+                                width: 2,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).background,
+                                width: 2,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            contentPadding:
+                                EdgeInsetsDirectional.fromSTEB(20, 40, 24, 0),
+                          ),
+                          style: FlutterFlowTheme.of(context)
+                              .bodyText1
+                              .override(
+                                fontFamily: 'Open Sans',
+                                color: FlutterFlowTheme.of(context).textColor,
+                                fontWeight: FontWeight.w500,
                               ),
                           textAlign: TextAlign.start,
                           maxLines: 4,
@@ -338,32 +285,8 @@ class _CreateBudgetWidgetState extends State<CreateBudgetWidget> {
                                   : null;
                           return FFButtonWidget(
                             onPressed: () async {
-                              final budgetsCreateData = createBudgetsRecordData(
-                                budetName: buttonBudgetListRecord.budget
-                                    .toList()
-                                    .length
-                                    .toString(),
-                                budgetAmount: buttonBudgetListRecord.budget
-                                    .toList()
-                                    .length
-                                    .toString(),
-                                budgetCreated: getCurrentTimestamp,
-                                budgetDescription: textController3.text,
-                                budgetTime: '29 days left',
-                                userBudgets: buttonBudgetListRecord.budgetUser,
-                              );
-                              await BudgetsRecord.collection
-                                  .doc()
-                                  .set(budgetsCreateData);
-
-                              final budgetListUpdateData = {
-                                'budget': FieldValue.arrayUnion([
-                                  buttonBudgetListRecord.budget
-                                      .toList()
-                                      .length
-                                      .toString()
-                                ]),
-                              };
+                              final budgetListUpdateData =
+                                  createBudgetListRecordData();
                               await buttonBudgetListRecord.reference
                                   .update(budgetListUpdateData);
                               Navigator.pop(context);
@@ -372,13 +295,12 @@ class _CreateBudgetWidgetState extends State<CreateBudgetWidget> {
                             options: FFButtonOptions(
                               width: 300,
                               height: 70,
-                              color: FlutterFlowTheme.of(context).tertiaryColor,
+                              color: Color(0xFF009F8B),
                               textStyle: FlutterFlowTheme.of(context).title1,
-                              elevation: 0,
+                              elevation: 2,
                               borderSide: BorderSide(
-                                color:
-                                    FlutterFlowTheme.of(context).darkBackground,
-                                width: 2,
+                                color: Color(0x00111417),
+                                width: 0,
                               ),
                               borderRadius: BorderRadius.circular(12),
                             ),
@@ -390,12 +312,17 @@ class _CreateBudgetWidgetState extends State<CreateBudgetWidget> {
                 ],
               ),
             ),
-            Text(
-              'Tap above to complete request',
-              style: FlutterFlowTheme.of(context).bodyText1.override(
-                    fontFamily: 'Open Sans',
-                    color: Color(0x43000000),
-                  ),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
+                child: Text(
+                  'Tap above to complete request',
+                  style: FlutterFlowTheme.of(context).bodyText1.override(
+                        fontFamily: 'Open Sans',
+                        color: Color(0x86000000),
+                      ),
+                ),
+              ),
             ),
           ],
         ),
